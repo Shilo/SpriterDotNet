@@ -89,7 +89,9 @@ namespace SpriterDotNetUnity
             Color c = renderer.color;
             renderer.color = new Color(c.r, c.g, c.b, info.Alpha);
             pivotTransform.localEulerAngles = new Vector3(0, 0, info.Angle);
-            pivotTransform.localPosition = new Vector3(info.X / ppu, info.Y / ppu, 0);
+            float infoX = Mathf.Round(info.X);
+            float infoY = Mathf.Round(info.Y);
+            pivotTransform.localPosition = new Vector3(infoX / ppu, infoY / ppu, 0);
             childTransform.localPosition = new Vector3(deltaX, deltaY, childTransform.localPosition.z);
             childTransform.localScale = new Vector3(info.ScaleX, info.ScaleY, 1);
 
