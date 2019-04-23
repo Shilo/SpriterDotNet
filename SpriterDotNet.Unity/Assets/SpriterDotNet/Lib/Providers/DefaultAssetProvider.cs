@@ -77,8 +77,28 @@ namespace SpriterDotNet.Providers
         public virtual void PopCharMap()
         {
             if (CharMaps.Count == 0) return;
+
+            RemoveCharMap(CharMaps.Peek());
             CharMaps.Pop();
             ApplyCharMap(CharMaps.Count > 0 ? CharMaps.Peek() : null);
+        }
+
+        protected virtual void RemoveCharMap(SpriterCharacterMap charMap)
+        {
+            if (charMap == null)
+            {
+                return;
+            }
+
+
+            for (int i = 0; i < charMap.Maps.Length; ++i)
+            {
+                SpriterMapInstruction map = charMap.Maps[i];
+                T sprite = GetAsset(map.FolderId, map.FileId);
+                if (sprite == null) continue;
+
+                CharMapValues.Remove(sprite);
+            }
         }
 
         protected virtual void ApplyCharMap(SpriterCharacterMap charMap)
